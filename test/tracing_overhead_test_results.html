@@ -1,0 +1,107 @@
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Tracing Overhead Test Results</title>
+</head>
+<body>
+    <script src="../src/vendor/highcharts/highcharts.js"></script>
+    <script src="../src/vendor/highcharts/modules/series-label.js"></script>
+    <script src="../src/vendor/highcharts/modules/exporting.js"></script>
+    <script src="../src/vendor/highcharts/modules/export-data.js"></script>
+<div style="display: flex; align-items: center;justify-content: center">
+    <div style = "width: 600; height: 400;" id="fixedContainer1" style="overflow: hidden;"></div>
+</div>
+<div style="display: flex; align-items: center;justify-content: center">
+    <div style = "width: 600; height: 400;" id="fixedContainer2" style="overflow: hidden;"></div>
+</div>
+<script type="text/javascript">
+/*CHART 1*/
+Highcharts.chart('fixedContainer1', {
+    title: {
+        text: 'Tracing Overhead'
+    },
+    subtitle: {
+        text: 'comparison of the overhead of different tracing methods'
+    },
+    legend: {
+        enabled: false
+    },
+    credits: {
+        enabled: false
+    },
+    yAxis: {
+        title: {
+            text: 'microseconds'
+        }
+    },
+    xAxis: {
+        title: {
+            text: 'number of processes'
+        },
+        categories: [1024,2048,4096,8192,16384,32768,65536,131072]
+    },
+    series: [
+        {name: '(1) standard_meta-tracing',
+         color: "#1F6FF1",
+         data: [1.0129877929687483,1.0258405761718767,0.991326416015625,
+                0.9979702148437493,1.0051401367187511,0.9684372558593751,
+                1.0182451171875018,1.0031838378906246]},
+        {name: '(2) call_time',
+         color: "black",
+         data: [0.10164135742187506,0.11169677734375016,0.14173071289062494,
+                0.17943041992187508,0.27451757812500027,0.4725500488281244,
+                0.4497585449218751,0.19031005859375033]},
+        {name: '(3) tree_MS_already_discovered',
+         color: "#F11F65",
+         data: [1.2968613281249997,1.4379331054687505,1.6922094726562502,
+                1.9064343261718772,1.9902897949218739,1.9726174316406249,
+                2.03451416015625,2.040426513671875]},        
+        {name: '(4) custom_tree_MS_not_discovered',
+         color: "#F18E1F",
+         data: [2.1106887207031275,2.2707397460937484,2.3844533691406253,
+                2.443697509765627,2.537202880859376,2.5106643066406242,
+                2.5734155273437507,2.660485107421877]}
+    ]
+});
+
+/*CHART 2*/
+Highcharts.chart('fixedContainer2', {
+    title: {
+        text: 'Custom Arity Test'
+    },
+    subtitle: {
+        text: 'comparison of the overhead of standard vs custom meta-tracing'
+    },
+    legend: {
+      enabled: false
+    },
+    credits: {
+        enabled: false
+    },
+    yAxis: {
+        title: {
+            text: 'microseconds'
+        },
+        type: "logarithmic"
+    },
+    xAxis: {
+        title: {
+            text: 'arguments length'
+        },
+        categories: [1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384]
+    },
+    series: [
+        {name: 'standard',
+         color: "#1F6FF1",
+         data: [1.3256400000000002,1.28367,1.2333100000000001,1.28169,1.40324,
+                1.57537,1.75048,2.51959,3.5658499999999997,5.88373,10.15795,
+                17.848390000000002,34.10445,69.68742,136.07031]},
+        {name: 'custom',
+         color: "#F11F65",
+         data: [2.0440300000000002,2.0569100000000002,1.95741,1.96021,1.99908,
+                2.11038,2.20307,2.2760599999999998,2.3356,2.1370299999999998,
+                2.17139,2.05288,2.2362699999999998,2.2642800000000003,2.19622]}
+    ]
+});
+</script>
+</body></html>

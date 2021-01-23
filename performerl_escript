@@ -1,0 +1,3 @@
+#! /bin/bash
+rebar3 escriptize
+_build/default/bin/performerl "$@"

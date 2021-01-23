@@ -1,0 +1,5 @@
+MacOS:
+    gcc -I /usr/lib/erlang/erts-10.6.4/include/ -fPIC -bundle -flat_namespace -undefined suppress -o <name>.so <name>.c
+
+Linux:
+    gcc -I /usr/lib/erlang/erts-10.6.4/include/ -fPIC -o <name>.so <name>.c

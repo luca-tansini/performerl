@@ -1,0 +1,134 @@
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Process Discoverer Data Structures Benchmark Results</title>
+</head>
+<body>
+<script src="../src/vendor/highcharts/highcharts.js"></script>
+<script src="../src/vendor/highcharts/modules/series-label.js"></script>
+<script src="../src/vendor/highcharts/modules/exporting.js"></script>
+<script src="../src/vendor/highcharts/modules/export-data.js"></script>
+<div style="display: flex; align-items: center;justify-content: center">
+    <div class="container" id="fixedContainer1" style="overflow: hidden;"></div>
+    <div class="container" id="fixedContainer2" style="overflow: hidden;"></div>
+</div>
+<script type="text/javascript">
+// CHART 1: Memory Consumption (not used anymore)
+// Highcharts.chart('fixedContainer1', {
+//     title: {
+//         text: 'Process Discoverer Data Structures Memory Consumption'
+//     },
+//     yAxis: {
+//         type: "logarithmic",
+//         title: {
+//             text: 'bytes'
+//         }
+//     },
+//     xAxis: {
+//         title: {
+//             text: 'Number of Processes'
+//         },
+//         categories: [1024,2048,4096,8192,16384,32768,65536,
+//                      131072,262144,524288,1048576]
+//     },
+//     series: [
+//         {name: 'discovered processes dict',
+//          data: [92232,184240,368256,736152,1471944,2943664,
+//                 5887104,11773848,23547336,47094448,94188672]},
+//         {name: 'active processes gb_sets',
+//          data: [32792, 65560, 131096, 262168, 524312, 1048600,
+//                 2097176, 4194328, 8388632, 16777240, 33554456]}
+//     ]
+// });
+
+// CHART 2: Operations Speed
+Highcharts.chart('fixedContainer2', {
+    title: {
+        text: 'PDA Data Structures Operations Speed'
+    },
+    legend: {
+        enabled: false
+    },
+    credits: {
+        enabled: false
+    },
+    yAxis: {
+        type: "logarithmic",
+        title: {
+            text: 'microseconds'
+        }
+    },
+    xAxis: {
+        title: {
+            text: 'number of entries'
+        },
+        categories: [1024,2048,4096,8192,16384,32768,65536,
+                     131072,262144,524288,1048576]
+    },
+    series: [
+        {name: 'gb_sets:insert',
+         color: "#1F6FF1",
+         data: [0.05114666666666667, 0.05523,0.11158666666666667,
+                0.2624166666666667, 0.3196033333333333, 0.31028666666666666,
+                0.55515, 0.7196966666666667, 0.8343866666666667,
+                0.9825466666666667,1.0422466666666668]},
+        {name: 'gb_sets:delete',
+         color: "black",
+         data: [0.055072,0.023576,0.04188,0.055192,0.086268,0.108032,0.336396,
+                0.555364,0.758264,0.977156,1.196956]},
+        {name: 'maps:is_key',
+         color: "#F11F65",
+         data: [9.82e-4,8.85e-4,0.001099,0.001199,0.001214,0.001138,0.001325,
+                0.001776,0.002991,0.005114,0.00728]},
+        {name: 'maps:put',
+         color: "#F18E1F",
+         data: [0.005002,0.007187,0.004972,0.018827,0.01895,0.019105,0.029344,
+                0.064105,0.19638 ,0.217991, 0.223855]}, 
+    ]
+});
+////////////////////////////////
+Highcharts.chart('fixedContainer1', {
+    title: {
+        text: 'Function Total Call Time'
+    },
+    credits: {
+        enabled: false
+    },
+    subtitle: {
+        text: 'top4 time consuming functions for each test run'
+    },
+    yAxis: {
+        title: {
+            text: 'Microseconds'
+        }
+    },
+    xAxis: {
+        title: {
+            text: 'number_of_processes'
+        },
+        categories: [65536,131072,262144,524288,1048576]
+    },
+    
+    plotOptions: {
+        series: {
+            cursor: 'pointer',
+            point: {
+                events: {
+                    click: function () {
+                        location.href = 'processes@127.0.0.1/functions/' +
+                            this.series.name + '.html';
+                    }
+                }
+            }
+        }
+    },
+    series: [
+    {name: 'plugin_alarm:-init.1-fun-0-:0', color: "#1F6FF1", data: [3554,9207,13667,34270,74845]},
+    {name: 'plugin_alarm:collect_procs_info:4', color: "black", data: [279399,595981,1021583,1038687,1008498]},
+    {name: 'plugin_builtin_metrics:collect_metrics:1', color: "#F11F65", data: [347793,682294,1373690,2809535,5684050]},
+    {name: 'plugin_code_tracer:search:1', color: "#F18E1F", data: [22364,22335,22510,23024,22670]}
+]
+});
+
+</script>
+</body></html>
