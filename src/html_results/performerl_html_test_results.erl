@@ -46,6 +46,10 @@ write_results(BaseDir, [Front, PIndex, FIndex, PDetails, FDetails]) ->
                                          io_lib:format("~s~n",[Page]))
                 end, NodeFDetails)
         end, FDetails),
+    
+    {ok, Cwd} = file:get_cwd(),
+    io:format("open this file in a browser to consult test results: '~s'~n",
+        [Cwd++"/"++BaseDir++"front_page.html"]),
     ok.
 
 generate(TestResults=#test_results{results_by_node=ResultsByNode,
