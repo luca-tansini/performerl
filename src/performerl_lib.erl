@@ -4,6 +4,7 @@
          get_timestamp/0,
          sleep_progress/1,
          inject_module/2,
+         inject_binary/3,
          rpc/2]).
 
 -define(WIDTH, 60).
@@ -45,6 +46,13 @@ rpc(Node, CodeStr) ->
 
 inject_module(Module, Node) ->
     {Module, ModBin, _} = code:get_object_code(Module),
+    case rpc:call(Node, code, load_binary, 
+             [Module, atom_to_list(Module)++".erl", ModBin]) of
+        {module, Module} -> ok;
+        {error, Reason} -> {error, Reason}
+    end.
+
+inject_binary(Module, ModBin, Node) ->
     case rpc:call(Node, code, load_binary, 
              [Module, atom_to_list(Module)++".erl", ModBin]) of
         {module, Module} -> ok;
