@@ -1,0 +1,17 @@
+{application, performerl_cowboy,
+ [{description, "An OTP application"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {performerl_cowboy_app, []}},
+  {applications,
+   [kernel,
+    runtime_tools,
+    stdlib,
+    cowboy
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {licenses, ["Apache 2.0"]},
+  {links, []}
+ ]}.
